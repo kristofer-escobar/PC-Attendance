@@ -33,7 +33,7 @@ var consumers = [
     },
     {
         'Name': 'Neal Test',
-        'Times': ['9:00 PM', '4:00 PM', '5:00 PM', '7:00 PM', '8:00 PM', '9:00 PM']
+        'Times': ['9:00 PM', '4:00 PM', '5:00 PM', '7:00 PM', '8:00 PM', '9:00 PM', '10:00 PM', '11:00 PM', '12:00 PM', '1:00 AM']
     }
 ];
 
@@ -62,13 +62,18 @@ $(document).ready(function () {
         for (var time in currentConsumer.Times) {
             var label = time % 2 ? 'Time Out: ' : 'Time In: ';
             debugger;
-            $("#attendance-main-content .panel-body").eq(consumer).append('<span id="time-row' + consumer + '" class="input-group-addon col-md-3 time-label">' +
-                label + '<span class="bootstrap-timepicker">' + '<input id="timepicker' + consumer + '_' + time + '" type="text" class="input-small"></span></span>');
+            $("#attendance-main-content .panel-body").eq(consumer).append('<div class="input-group"><span class="input-group-addon time-label">' +
+                label + '</span><span class="bootstrap-timepicker">' + '<input id="timepicker' + consumer + '_' + time + '" type="text" class="input-small"></span></div>');
 
-            if ((!(time % 4) && (time)) || (time == currentConsumer.Times.length - 1)) {
-                $('#attendance-main-content .panel-body:eq('+ (time/4)+')').eq(consumer).wrap('<div class="row"></div>');
+            if (((+time != 0) && ((+time + 1) % 8) == 0) || (+time == currentConsumer.Times.length - 1)){
+                $('#attendance-main-content .panel-body:eq(' + consumer + ') > .input-group').wrapAll('<div class="row"></div>');
+
+                while (($children = $(':not(.col-md-3) > .input-group:lt(2)')).length) {
+                    $children.wrapAll($('<div class="col-sm-6 col-md-3"></div>'));
+                }
             }
 
+            // Initialize timepickers
             $('#timepicker' + consumer + '_' + time).timepicker({
                 minuteStep: 5,
                 showInputs: false,
