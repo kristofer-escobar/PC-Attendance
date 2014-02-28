@@ -121,7 +121,6 @@ a.accordion-toggle:hover {
 	right:15px;
 	width:12px;
 	height:12px;
-	/*background:url(../img/arrows.png) -12px 0;*/
 	content:"";
 }
 
@@ -212,7 +211,6 @@ a.accordion-toggle.expanded, .accordion-button > a.expanded {
         padding-left:0px;
         padding-right:0px;
     }
-
 }
 
 /* Medium tablets and up. (min-width ~1280px) */

@@ -69,7 +69,7 @@ $(document).ready(function () {
                 $('#attendance-main-content .panel-body:eq(' + consumer + ') > .input-group').wrapAll('<div class="row"></div>');
 
                 while (($children = $(':not(.col-md-3) > .input-group:lt(2)')).length) {
-                    $children.wrapAll($('<div class="col-sm-6 col-md-3"></div>'));
+                    $children.wrapAll($('<div class="time-group col-sm-6 col-md-3"></div>'));
                 }
             }
 

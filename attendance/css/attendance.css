@@ -1,3 +1,40 @@
 .time-label{
     width: 87px;
 }
+
+.time-group{
+    padding-bottom:5px;
+    padding-top:5px;
+}
+
+/******************************
+    MEDIA QUERIES
+ ******************************/
+
+/* Mobile phones in landscape or smaller tablets. (min-width ~768px) */
+@media screen and (min-width: 48em) {
+
+    .row{
+        padding-top:10px;
+        padding-bottom:10px;
+    }
+
+    .time-group{
+        padding-bottom:0px;
+        padding-top:0px;
+    }
+}
+
+/* Medium tablets and up. (min-width ~1280px) */
+@media screen and (min-width: 80em) {
+        
+    .row{
+        padding-top:10px;
+        padding-bottom:10px;
+    }
+
+    .time-group{
+        padding-bottom:0px;
+        padding-top:0px;
+    }
+}
