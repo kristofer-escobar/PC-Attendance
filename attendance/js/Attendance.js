@@ -63,7 +63,7 @@ $(document).ready(function () {
             var label = time % 2 ? 'Time Out: ' : 'Time In: ';
             debugger;
             $("#attendance-main-content .panel-body").eq(consumer).append('<div class="input-group"><span class="input-group-addon time-label">' +
-                label + '</span><span class="bootstrap-timepicker">' + '<input id="timepicker' + consumer + '_' + time + '" type="text" class="input-small"></span></div>');
+                label + '</span><span class="bootstrap-timepicker">' + '<input id="timepicker' + consumer + '_' + time + '" type="text" class="timepicker form-control"></span></div>');
 
             if (((+time != 0) && ((+time + 1) % 8) == 0) || (+time == currentConsumer.Times.length - 1)){
                 $('#attendance-main-content .panel-body:eq(' + consumer + ') > .input-group').wrapAll('<div class="row"></div>');
@@ -76,11 +76,11 @@ $(document).ready(function () {
             // Initialize timepickers
             $('#timepicker' + consumer + '_' + time).timepicker({
                 minuteStep: 5,
-                showInputs: false,
-                disableFocus: true
+                showInputs: false
             });
 
             $('#timepicker' + consumer + '_' + time).timepicker('setTime', currentConsumer.Times[time]);
         }
     }
 });
+
