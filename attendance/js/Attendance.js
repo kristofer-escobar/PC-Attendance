@@ -13,7 +13,6 @@ var consumers = [
     {
         'Name':'Bob Test',
         'Times':['11:00 PM','2:00 PM','5:00 PM','7:00 PM']
-
     },
     {
         'Name': 'Peter Test',
@@ -51,8 +50,9 @@ $(document).ready(function () {
         // Get current consumer.
         var currentConsumer = consumers[consumer];
 
-        $('#attendance-main-content').append('<div class="panel panel-default"><div class="panel-heading center"><h4 class="panel-title">' +
-            '<a data-toggle="collapse" data-parent="#attendance-main-content" href="#collapse' + consumer + '"></a></h4></div>' +
+        $('#attendance-main-content').append('<div class="panel"><div class="panel-heading">' +
+            '<input class="selected-consumer" id="consumer' + consumer + '" type="checkbox"><a class="panel-title collapsed accordion-toggle1" data-toggle="collapse" data-target="#collapse' + consumer + '">CONUSMER LONG TEST NAME</a>' +
+            '<div class="pull-right btn-group present-button" data-toggle="buttons"><label class="btn btn-default"><input type="checkbox">Present</label></div></div>' +
             '<div id="collapse' + consumer + '" class="panel-collapse collapse in"><div class="panel-body"></div></div></div>');
 
         // Set the consumer names.
@@ -61,7 +61,7 @@ $(document).ready(function () {
         // Create dropdowns for each time.
         for (var time in currentConsumer.Times) {
             var label = time % 2 ? 'Time Out: ' : 'Time In: ';
-            debugger;
+
             $("#attendance-main-content .panel-body").eq(consumer).append('<div class="input-group"><span class="input-group-addon time-label">' +
                 label + '</span><span class="bootstrap-timepicker">' + '<input id="timepicker' + consumer + '_' + time + '" type="text" class="timepicker form-control"></span></div>');
 
@@ -81,6 +81,20 @@ $(document).ready(function () {
 
             $('#timepicker' + consumer + '_' + time).timepicker('setTime', currentConsumer.Times[time]);
         }
+
+        // Toggle panel-info class to change the color.
+        $('#consumer' + consumer).change(function () {
+            console.log('#consumer' + consumer);
+            $(this).parent().parent().toggleClass("panel-info");
+        });
     }
+
+
+    // handle the #toggle click event
+    $("#side-menu-toggle").on("click", function () {
+        // apply/remove the active class to the row-offcanvas element
+        $(".row-offcanvas").toggleClass("active");
+    });
+
 });
 
