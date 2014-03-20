@@ -1,19 +1,30 @@
 input[type="checkbox"].selected-consumer{
+    margin-left:10px;
     margin-right:10px;
+}
+
+.cbSelect{
+    display:block;
+    float:left;
+    padding-top:15px;
+    padding-bottom:10px;
+    overflow:auto;
+}
+
+.btnPresent{
+    float:right;
+    padding-top:9px;
+    padding-right:10px;
+}
+
+.attendance-panel-header{
+    text-align:center;
+    padding: 15px 15px;
 }
 
 a.panel-title {
     text-decoration: none;
     cursor: pointer; 
-}
-
-.panel-heading {
-    overflow: hidden;
-    padding-top: 20px;
-}
-.btn-group {
-    position: relative;
-    top: -5px;
 }
 
 .time-group{
@@ -88,7 +99,7 @@ html {
         width: 80%;
         position: absolute;
         top: 0;
-        background-color: #F7F7F7;
+        background-color: #3B3B3B;
         padding: 0;
         height: 100%;
     }

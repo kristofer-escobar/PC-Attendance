@@ -50,10 +50,20 @@ $(document).ready(function () {
         // Get current consumer.
         var currentConsumer = consumers[consumer];
 
+        // Build Panel Heading.
         $('#attendance-main-content').append('<div class="panel"><div class="panel-heading">' +
-            '<input class="selected-consumer" id="consumer' + consumer + '" type="checkbox"><a class="panel-title collapsed accordion-toggle1" data-toggle="collapse" data-target="#collapse' + consumer + '">CONUSMER LONG TEST NAME</a>' +
-            '<div class="pull-right btn-group present-button" data-toggle="buttons"><label class="btn btn-default"><input type="checkbox">Present</label></div></div>' +
-            '<div id="collapse' + consumer + '" class="panel-collapse collapse in"><div class="panel-body"></div></div></div>');
+
+            // Build Selection Checkbox.
+            '<label class="cbSelect"><input class="selected-consumer" id="consumer' + consumer + '" type="checkbox"></label>' +
+
+            //  Build Present checkbox button.
+            '<div class="btnPresent" data-toggle="buttons"><label class="btn btn-default"><input type="checkbox">Present</label></div>' +
+
+            // Build Panel Header.
+            '<a class="panel-header attendance-panel-header collapsed" data-toggle="collapse" data-target="#collapse' + consumer + '"></a>' +
+
+            // Build Panel Body.
+            '</div><div id="collapse' + consumer + '" class="panel-collapse collapse in"><div class="panel-body"></div></div></div>');
 
         // Set the consumer names.
         $("#attendance-main-content a").eq(consumer).text(currentConsumer.Name);
@@ -76,7 +86,9 @@ $(document).ready(function () {
             // Initialize timepickers
             $('#timepicker' + consumer + '_' + time).timepicker({
                 minuteStep: 5,
-                showInputs: false
+                showInputs: false,
+                disableFocus: true,
+                disableMousewheel: true
             });
 
             $('#timepicker' + consumer + '_' + time).timepicker('setTime', currentConsumer.Times[time]);
@@ -85,10 +97,9 @@ $(document).ready(function () {
         // Toggle panel-info class to change the color.
         $('#consumer' + consumer).change(function () {
             console.log('#consumer' + consumer);
-            $(this).parent().parent().toggleClass("panel-info");
+            $(this).parent().parent().parent().toggleClass("panel-info");
         });
     }
-
 
     // handle the #toggle click event
     $("#side-menu-toggle").on("click", function () {
