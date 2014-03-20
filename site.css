@@ -46,6 +46,14 @@ h1, h2, h3{
     position:relative;
 }
 
+.panel:not(.panel-info) > .panel-heading:hover{
+    background-color:#eee;
+}
+
+.panel:not(.panel-info):hover{
+    border-color:#eee;
+}
+
 .panel-header{
     display:block;
     overflow:hidden;
@@ -54,10 +62,25 @@ h1, h2, h3{
     text-decoration:none;
     line-height: 20px;
     padding: 10px 15px;
+    color:#505459;
 }
 
 .panel-header:hover, .panel-header:focus{
     text-decoration:none;
+    color:#505459;
+}
+
+.tree-toggler.nav-header{
+    color:#777;
+    font-weight:200;
+}
+
+.tree-toggler.nav-header:hover{
+    color:#1c1818;
+}
+
+.nav.nav-list li a{
+    color:#777;
 }
 /*********************
     LEFT SIDEBAR MENU 

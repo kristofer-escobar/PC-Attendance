@@ -107,5 +107,9 @@ $(document).ready(function () {
         $(".row-offcanvas").toggleClass("active");
     });
 
+    $('label.tree-toggler').click(function () {
+        $(this).parent().children('ul.tree').toggle(300);
+    });
+
 });
 
