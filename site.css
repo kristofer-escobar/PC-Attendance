@@ -4,6 +4,7 @@
 /*Default styles (Mobile First max-width ~768px) */
 #settings-cog{
     display:none;
+    line-height:18px;
 }
 
 body{
@@ -15,35 +16,8 @@ h1, h2, h3{
     color:white;
 }
 
-.center{
-    text-align:center;
-}
-
-.bottom {
-    vertical-align: text-bottom;
-}
-
-.relative{
-    position:relative;
-}
-
-.float-none{
-    float:none;
-}
-
-.container{
-    margin-left:auto;
-    margin-right:auto;
-}
-
 .page-header{
     text-align:center;
-}
-
-.panel-heading{
-    padding:0;
-    overflow:hidden;
-    position:relative;
 }
 
 .panel:not(.panel-info) > .panel-heading:hover{
@@ -54,15 +28,20 @@ h1, h2, h3{
     border-color:#eee;
 }
 
+.menu-heading{
+    padding:0px;
+}
+
+.menu-item{
+    padding:10px
+}
+
 .panel-header{
     display:block;
-    overflow:hidden;
     margin-left: auto;
     margin-right: auto;
-    text-decoration:none;
-    line-height: 20px;
-    padding: 10px 15px;
     color:#505459;
+    text-decoration:none;
 }
 
 .panel-header:hover, .panel-header:focus{
@@ -85,6 +64,22 @@ h1, h2, h3{
 /*********************
     LEFT SIDEBAR MENU 
 **********************/
+
+#left-sidebar-menu-header{
+    width:100%;
+    padding-top:10px;
+}
+
+#case-record-button{
+    width:100%;
+    padding:10px;
+    white-space:normal;
+}
+
+.main-menu-panel{
+    padding-top:10px;
+}
+
 .context-menu{
     color:white;
     position:relative;
@@ -235,16 +230,15 @@ a.accordion-toggle.expanded, .accordion-button > a.expanded {
 /* Mobile phones in landscape or smaller tablets. (min-width ~768px) */
 @media screen and (min-width: 48em) {
     #settings-header{
-    display:none;
+        display:none;
     }
 
     #settings-cog{
-    display:block;
+        display:block;
     }
 
     #navbar-container.container-fluid {
-        padding-left:8px;
-        padding-right:8px;
+
     }
 
     .col-md-8.col-md-offset-2{

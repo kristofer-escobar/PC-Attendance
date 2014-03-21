@@ -51,19 +51,19 @@ $(document).ready(function () {
         var currentConsumer = consumers[consumer];
 
         // Build Panel Heading.
-        $('#attendance-main-content').append('<div class="panel"><div class="panel-heading">' +
+        $('#attendance-main-content').append('<div class="panel"><div class="attendance-heading panel-heading attendance-table"><div class="attendance-row panel-title">' +
 
             // Build Selection Checkbox.
-            '<label class="cbSelect"><input class="selected-consumer" id="consumer' + consumer + '" type="checkbox"></label>' +
-
-            //  Build Present checkbox button.
-            '<div class="btnPresent" data-toggle="buttons"><label class="btn btn-default"><input type="checkbox">Present</label></div>' +
+            '<label class="attendance-cell consumer-select-checkbox"><input class="selected-consumer" id="consumer' + consumer + '" type="checkbox"></label>' +
 
             // Build Panel Header.
-            '<a class="panel-header attendance-panel-header collapsed" data-toggle="collapse" data-target="#collapse' + consumer + '"></a>' +
+            '<a class="attendance-cell panel-header collapsed" data-toggle="collapse" href="#collapse' + consumer + '"></a>' +
+
+            //  Build Present checkbox button.
+            '<div class="attendance-cell present-button" data-toggle="buttons"><label class="btn btn-default"><input type="checkbox">Present</label></div>' +
 
             // Build Panel Body.
-            '</div><div id="collapse' + consumer + '" class="panel-collapse collapse in"><div class="panel-body"></div></div></div>');
+            '</div></div><div id="collapse' + consumer + '" class="panel-collapse collapse in"><div class="panel-body"></div></div></div>');
 
         // Set the consumer names.
         $("#attendance-main-content a").eq(consumer).text(currentConsumer.Name);
@@ -96,8 +96,7 @@ $(document).ready(function () {
 
         // Toggle panel-info class to change the color.
         $('#consumer' + consumer).change(function () {
-            console.log('#consumer' + consumer);
-            $(this).parent().parent().parent().toggleClass("panel-info");
+            $(this).parent().parent().parent().parent().toggleClass("panel-info");
         });
     }
 

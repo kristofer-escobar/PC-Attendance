@@ -1,25 +1,35 @@
-input[type="checkbox"].selected-consumer{
-    margin-left:10px;
-    margin-right:10px;
-}
-
-.cbSelect{
-    display:block;
-    float:left;
-    padding-top:15px;
-    padding-bottom:10px;
-    overflow:auto;
-}
-
-.btnPresent{
-    float:right;
-    padding-top:9px;
-    padding-right:10px;
-}
-
-.attendance-panel-header{
+.attendance-heading{
+    padding:0px;
     text-align:center;
-    padding: 15px 15px;
+}
+
+.attendance-title{
+    display:table;
+    width:100%;
+}
+
+.attendance-table{
+    display:table;
+    width:100%;
+}
+
+.attendance-row{
+    display:table-row;
+}
+
+.attendance-cell{
+    display:table-cell;
+    vertical-align:middle;
+    text-align:center;
+    padding:10px;
+}
+
+.consumer-select-checkbox{
+    width:5%;
+}
+
+.present-button{
+    width:8%;
 }
 
 a.panel-title {
@@ -52,15 +62,24 @@ html {
   overflow-x: hidden;
 }
 
-/* move the toggle button to the left and give it
-   some breathing room */
+.navbar-toggle{
+    padding:8px;
+    margin-left:15px;
+}
+
 #side-menu-toggle {
-  float: left;
-  margin-left:-20px;
+    float:left;
 }
 
 #static-menu-toggle {
-  margin-right:-20px;
+    float:right;
+}
+
+#company-brand{
+    display:block;
+    overflow:hidden;
+    margin-left:auto;
+    margin-right:auto;
 }
 
 /******************************
