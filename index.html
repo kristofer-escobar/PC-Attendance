@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="pcApp">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,8 +21,8 @@
     <link href="css/attendance.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
-        <script src="../../assets/js/ie8-responsive-file-warning.js"></script>
-   <![endif]-->
+         <script src="../../assets/js/ie8-responsive-file-warning.js"></script>
+    <![endif]-->
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -94,7 +94,7 @@
                 <div class="sidebar col-sm-3 col-md-2 sidebar-offcanvas">
                     <!-- Left Sidebar Menu -->
                     <div id="left-sidebar-menu">
-                        <div id="left-sidebar-menu-header" class="btn-group" >
+                        <div id="left-sidebar-menu-header" class="btn-group">
                             <button type="button" id="case-record-button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                                 Developmental Disabilities <span class="caret"></span>
                             </button>
@@ -106,12 +106,12 @@
                                 <li><a href="#">Employment</a></li>
                             </ul>
                         </div> <!-- sidebar-menu-title -->
-                        
+
                         <div class="main-menu-panel panel-group" id="accordion">
-                            
+
                             <div class="panel panel-default">
-                                <div class="menu-heading panel-heading" >
-                                    <a class="menu-item panel-header"  data-toggle="collapse" data-parent="#accordion" href="#individualMenu">
+                                <div class="menu-heading panel-heading">
+                                    <a class="menu-item panel-header" data-toggle="collapse" data-parent="#accordion" href="#individualMenu">
                                         Individuals
                                     </a>
                                 </div>
@@ -172,7 +172,7 @@
                             </div> <!-- INDIVIDUAL MENU -->
 
                             <div class="panel panel-default">
-                                <div class="menu-heading panel-heading" >
+                                <div class="menu-heading panel-heading">
                                     <a class="menu-item panel-header" data-toggle="collapse" data-parent="#accordion" href="#intakeMenu">
                                         Intake
                                     </a>
@@ -303,25 +303,30 @@
 
                         </div>
                     </div>
-                    
+
                     <!-- /Left Sidebar Menu -->
+
                     <!-- Contextual Sidebar Menu -->
                     <div id="left-contextual-sidebar-menu">
                         <!--<div id="left-contextual-sidebar-menu-header" class="page-header">
                             <h3>Search Criteria</h3>
-                        </div>--> 
+                        </div>-->
                         <!-- sidebar-menu-title -->
                     </div>
                     <!-- /Left Contextual Sidebar Menu -->
 
                 </div>
                 <!-- /Left Sidebars -->
+                
                 <!-- Main Content -->
                 <div id="main" class="col-sm-9 col-md-8">
                     <div id="main-content-header" class="page-header"></div>
-                    <div id="main-content"></div>
+                    <div id="main-content">
+                        <div ng-view></div>
+                    </div>
                 </div>
                 <!-- /Main Content -->
+                
                 <!-- Right Sidebars -->
                 <div class="sidebar col-md-2">
                     <!-- Right-Sidebar-Menu -->
@@ -340,14 +345,21 @@
     </div>
 
     <!-- Placed at the end of the document so the pages load faster -->
-    <!-- Bootstrap core JavaScript
+    <!-- Bootstrap core/modules JavaScript
     ================================================== -->
     <script src="lib/jquery/jquery-2.1.0.min.js"></script>
     <script src="lib/bootstrap/bootstrap.js"></script>
     <script src="lib/bootstrap/bootstrap-timepicker.min.js"></script>
 
+    <!-- Angular core/modules JavaScript
+    ================================================== -->
+    <script src="lib/angular/angular.min.js"></script>
+    <script src="lib/angular/angular-route.min.js"></script>
+
     <!-- Custom JavaScript
     ================================================== -->
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
     <script src="js/site.js"></script>
     <script src="js/attendance.js"></script>
 

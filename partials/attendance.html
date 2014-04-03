@@ -1,0 +1,35 @@
+﻿<div class="panel-group" ng-controller="AttendanceCtrl">
+    <div class="panel" ng-class="{'panel-info':selected}" ng-repeat="consumer in consumers">
+        <div class=" attendance-heading panel-heading attendance-table">
+            <div class="attendance-row panel-title">
+                <label class="attendance-cell consumer-select-checkbox">
+                    <input class="selected-consumer" id="consumer{{consumer.id}}" type="checkbox" ng-model="selected">
+                </label>
+                <a class="attendance-cell panel-header collapsed" data-toggle="collapse" data-target="#collapse{{consumer.id}}">{{consumer.name}}</a>
+                <div class="attendance-cell present-button" data-toggle="buttons">
+                    <label class="btn btn-default"><input type="checkbox">Present</label>
+                </div>
+            </div>
+        </div>
+        <div id="collapse{{consumer.id}}" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="time-group col-sm-6 col-md-3" ng-repeat="time in consumer.times">
+                        <div class="input-group">
+                            <span class="input-group-addon time-label">Time In: </span>
+                            <span class="bootstrap-timepicker">
+                                <input id="timeIn{{$index}}_{{consumer.id}}" type="text" class="timepicker form-control" value="{{time.in}}">
+                            </span>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon time-label">Time Out: </span>
+                            <span class="bootstrap-timepicker">
+                                <input id="timeOut{{$index}}_{{consumer.id}}" type="text" class="timepicker form-control" value="{{time.out}}">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
