@@ -9,7 +9,7 @@
 
 body{
     padding-top: 50px; /* Used to prevent overlap of nav bar*/
-	background-color: #9bbfdb;
+	/*background-color: #9bbfdb;*/
 }
 
 h1, h2, h3{
@@ -61,6 +61,13 @@ h1, h2, h3{
 .nav.nav-list li a{
     color:#777;
 }
+/*********************
+    NAVBAR MENU 
+**********************/
+#username{
+    padding-left: 20px;
+}
+
 /*********************
     LEFT SIDEBAR MENU 
 **********************/

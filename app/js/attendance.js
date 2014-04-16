@@ -24,9 +24,13 @@ $(document).ready(function () {
         $(".row-offcanvas").toggleClass("active");
     });
 
-    $('label.tree-toggler').click(function () {
-        $(this).parent().children('ul.tree').toggle(300);
+    //$('label.tree-toggler').click(function () {
+    //    $(this).parent().children('ul.tree').toggle(300);
+    //});
+    $('.tree-toggle').click(function () {
+        debugger;
+        console.log('binding');
+        $(this).parent().children('ul.tree').toggle(200);
     });
-
 });
 
