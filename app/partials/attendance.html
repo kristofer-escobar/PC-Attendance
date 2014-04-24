@@ -1,37 +1,32 @@
-﻿<div ng-controller="AttendanceCtrl">
-    <div class="context-menu-content">
-    </div>
-
+﻿<div class="well" ng-controller="AttendanceCtrl">
     <div class="panel-group">
-        <div class="panel" ng-class="{'panel-info':selected}" ng-repeat="attendance in consumerAttendance">
-            <div class=" attendance-heading panel-heading attendance-table">
+        <div class="panel" ng-class="{'panel-info':selected}" ng-repeat="client in clientAttendance">
+            <div class="attendance-heading panel-heading attendance-table">
                 <div class="attendance-row panel-title">
                     <label class="attendance-cell consumer-select-checkbox">
-                        <input class="selected-consumer" id="consumer{{attendance.client.id}}" type="checkbox" ng-model="selected">
+                        <input class="selected-consumer" id="client{{client.id}}" type="checkbox" ng-model="selected">
                     </label>
-                    <a class="attendance-cell panel-header collapsed" data-toggle="collapse" data-target="#collapse{{attendance.client.id}}">{{attendance.client.first_name}} {{attendance.client.last_name}}</a>
+                    <a class="attendance-cell panel-header collapse">{{client.first_name}} {{client.last_name}}</a>
                     <div class="attendance-cell present-button" data-toggle="buttons">
-                        <label class="btn btn-default"><input type="checkbox">Present</label>
+                        <label class="btn btn-default" ng-class="{'active': client.attendance.length}" data-toggle="collapse" data-target="#collapse{{client.id}}"><input type="checkbox">Present</label>
                     </div>
                 </div>
             </div>
-            <div id="collapse{{attendance.client.id}}" class="panel-collapse collapse in">
+            <div id="collapse{{client.id}}" class="panel-collapse" ng-class="client.attendance.length ? 'collapse in' : 'collapse'">
                 <div class="panel-body">
                     <div class="row">
-                        <div class="time-group col-sm-6 col-md-3" ng-repeat="time in consumer.times">
-                            <div class="input-group">
-                                <span class="input-group-addon time-label">Time In: </span>
-                                <span class="bootstrap-timepicker">
-                                    <input id="timeIn{{$index}}_{{attendance.client.id}}" type="text" class="timepicker form-control" value="{{time.in}}">
-                                </span>
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon time-label">Time Out: </span>
-                                <span class="bootstrap-timepicker">
-                                    <input id="timeOut{{$index}}_{{attendance.client.id}}" type="text" class="timepicker form-control" value="{{time.out}}">
-                                </span>
-                            </div>
+                        <div ng-repeat="attendanceRecord in client.attendance">
+                            <div time-picker attendance="attendanceRecord" Id="{{$index}}_{{client.id}}"></div>
                         </div>
+                        <div class="col-sm-6 col-md-3">
+                            <button class="btn btn-success" ng-show="ShowTimeIn(client.attendance)" ng-click="TimeIn(client)">
+                            Time In
+                            </button>
+                            <button class="btn btn-danger" ng-show="ShowTimeOut(client.attendance)" ng-click="TimeOut(client)">
+                            Time Out
+                            </button>
+                        </div>
+                        
                     </div>
                 </div>
             </div>

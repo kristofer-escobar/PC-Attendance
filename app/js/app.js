@@ -2,50 +2,51 @@
 
 /* App Module */
 
+// Application and it's dependencies.
 var pcApp = angular.module('pcApp', [
     'ngRoute',
-    'pcControllers',
-    'pcServices',
-    'ngLoadScript'
+    'ui.router',
+    'ui.bootstrap',
+    'pcControllers'
 ]);
 
-pcApp.config(['$routeProvider',
-  function ($routeProvider) {
-      $routeProvider.
-        when('/attendance', {
+// Route Provider.
+pcApp.config(['$routeProvider', 
+    function ($routeProvider) {
+
+        $routeProvider.
+        when('/attendance/service/:servId/date/:date', {
             templateUrl: 'partials/attendance.html',
             controller: 'AttendanceCtrl'
         }).
         otherwise({
             redirectTo: '/attendance'
         });
-  }]);
+    }
+]);
 
-/*global angular */
-(function (ng) {
-    'use strict';
-    var app = ng.module('ngLoadScript', []);
-
-    app.directive('script', function () {
-        return {
-            restrict: 'E',
-            scope: false,
-            link: function (scope, elem, attr) {
-                if (attr.type === 'text/javascript-lazy') {
-                    var s = document.createElement("script");
-                    s.type = "text/javascript";
-                    var src = elem.attr('src');
-                    if (src !== undefined) {
-                        s.src = src;
-                    }
-                    else {
-                        var code = elem.text();
-                        s.text = code;
-                    }
-                    document.head.appendChild(s);
-                    elem.remove();
-                }
-            }
-        };
-    });
-}(angular));
+pcApp.directive('timePicker', function () {
+    return {
+      restrict: 'A',
+      template: '<div class="time-group col-sm-6 col-md-3" ng-if="attendance.duration !== 0">' +
+                    '<div class="input-group" ng-if="attendance.start_time">' +
+                        '<span class="input-group-addon time-label">Time In:</span>' +
+                        '<span class="bootstrap-timepicker">' +
+                            '<input id="timeIn{{Id}}" type="text" class="timepicker form-control" value="{{attendance.start_time}}">' +
+                        '</span>' +
+                    '</div>' +
+                    '<div class="input-group" ng-if="attendance.start_time && attendance.end_time">' +
+                        '<span class="input-group-addon time-label">Time Out:</span>' +
+                        '<span class="bootstrap-timepicker">' +
+                            '<input id="timeOut{{Id}}" type="text" class="timepicker form-control" value="{{attendance.end_time}}">' +
+                        '</span>' +
+                    '</div>' +
+                '</div>',
+      scope: {
+        attendance: '=',
+        Id: '='
+      },
+      link: function (scope, elem, attrs) {
+      }
+  }
+});
