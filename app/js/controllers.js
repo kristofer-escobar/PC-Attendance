@@ -51,20 +51,24 @@ function ($scope) {
 pcControllers.controller('AttendanceCtrl', ['$scope', '$http', '$routeParams',
   function ($scope, $http, $routeParams) {
 
+      // Default service to service id 0.
       if($routeParams.servId == ''){
         $routeParams.servId = 0;      
       }
 
+      // Default attendance to today's date.
       if($routeParams.date == ''){
         $routeParams.date = new Date().today();
       }
 
+      // Request to get attendnace for a service on a given day.
       $http.get('http://localhost:6543/attendance/service/' + $routeParams.servId + '/date/' + $routeParams.date).
       success(function(data) {
-        // Attendance Records
+        // Get Attendance Records
         $scope.clientAttendance = data;
       }). 
       error(function(){
+        // Request to get attendance failed.
         alert("Failed");
       });
 
@@ -77,6 +81,7 @@ pcControllers.controller('AttendanceCtrl', ['$scope', '$http', '$routeParams',
       $scope.ShowTimeIn = function(attendance){
 
         /*
+         * Summary:
          * Show the "Time In" button when the last time entered was an end time,
          * or if there isn't any attendance. 
          */
@@ -104,6 +109,7 @@ pcControllers.controller('AttendanceCtrl', ['$scope', '$http', '$routeParams',
       $scope.ShowTimeOut = function(attendance){
 
         /*
+         * Summary:
          * Show the "Time Out" button when there is a start time and no end time. 
          */
 
@@ -122,11 +128,15 @@ pcControllers.controller('AttendanceCtrl', ['$scope', '$http', '$routeParams',
         return showTimeOut;
       }
 
-      $scope.TimeIn = function(client){
+      $scope.TimeIn = function(attendance){
+
+        /*
+         * Summary:
+         * Add a time row. If there is not attendance,
+         * create a duration row.
+         */
 
         // Check if there is attendance.
-        var attendance = client.attendance;
-
         if(attendance.length == 0){
 
           // No attendance found, create a duration row.
@@ -165,11 +175,14 @@ pcControllers.controller('AttendanceCtrl', ['$scope', '$http', '$routeParams',
         attendance.push(timeRow);
       }
 
-      $scope.TimeOut = function(client){
+      $scope.TimeOut = function(attendance){
+
+        /*
+         * Summary:
+         * Add a time out and update status to "Closed".
+         */
 
         // Check if there is attendance.
-        var attendance = client.attendance;
-
         if(attendance.length){
           // Attendance Found, validate times.
 
@@ -180,43 +193,4 @@ pcControllers.controller('AttendanceCtrl', ['$scope', '$http', '$routeParams',
           attendance[attendance.length - 1].end_time = new Date().timeNow();
         }
       }
-
-    //      [
-    //{
-    //    'id': 0,
-    //    'name': 'Mike Test',
-    //    'times': [{ 'in': '12:00 PM', 'out': '1:00 PM' }, {'in':'2:00 PM'}]
-    //},
-    //{
-    //    'id': 1,
-    //    'name': 'Bob Test',
-    //    'times': [{ 'in': '11:00 PM', 'out': '2:00 PM' }, { 'in': '5:00 PM', 'out': '7:00 PM' }]
-    //},
-    //{
-    //    'id': 2,
-    //    'name': 'Peter Test',
-    //    'times': [{ 'in': '9:00 PM', 'out': '4:00 PM' }, { 'in': '5:00 PM', 'out': '7:00 PM' }, { 'in': '8:00 PM', 'out': '9:00 PM' }]
-    //},
-    //{
-    //    'id': 3,
-    //    'name': 'Greg Test',
-    //    'times': [{ 'in': '9:00 PM', 'out': '4:00 PM' }, { 'in': '5:00 PM', 'out': '7:00 PM' }, { 'in': '8:00 PM', 'out': '9:00 PM' }]
-    //},
-    //{
-    //    'id': 4,
-    //    'name': 'John Test',
-    //    'times': [{ 'in': '9:00 PM', 'out': '4:00 PM' }, { 'in': '5:00 PM', 'out': '7:00 PM' }, { 'in': '8:00 PM', 'out': '9:00 PM' }]
-    //},
-    //{
-    //    'id': 5,
-    //    'name': 'Bill Test',
-    //    'times': [{ 'in': '9:00 PM', 'out': '4:00 PM' }, { 'in': '5:00 PM', 'out': '7:00 PM' }, { 'in': '8:00 PM', 'out': '9:00 PM' }]
-    //},
-    //{
-    //    'id': 6,
-    //    'name': 'Neal Test',
-    //    'times': [{ 'in': '9:00 PM', 'out': '4:00 PM' }, { 'in': '5:00 PM', 'out': '7:00 PM' }, { 'in': '8:00 PM', 'out': '9:00 PM' }, { 'in': '10:00 PM', 'out': '11:00 PM' }, { 'in': '12:00 PM', 'out': '1:00 AM' }]
-    //}
-    //  ];
-
   }]);

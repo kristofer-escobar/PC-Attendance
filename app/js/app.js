@@ -25,6 +25,7 @@ pcApp.config(['$routeProvider',
     }
 ]);
 
+// Directive to set up time-picker control.
 pcApp.directive('timePicker', function () {
     return {
       restrict: 'A',
@@ -32,19 +33,18 @@ pcApp.directive('timePicker', function () {
                     '<div class="input-group" ng-if="attendance.start_time">' +
                         '<span class="input-group-addon time-label">Time In:</span>' +
                         '<span class="bootstrap-timepicker">' +
-                            '<input id="timeIn{{Id}}" type="text" class="timepicker form-control" value="{{attendance.start_time}}">' +
+                            '<input type="text" class="timepicker form-control" value="{{attendance.start_time}}">' +
                         '</span>' +
                     '</div>' +
                     '<div class="input-group" ng-if="attendance.start_time && attendance.end_time">' +
                         '<span class="input-group-addon time-label">Time Out:</span>' +
                         '<span class="bootstrap-timepicker">' +
-                            '<input id="timeOut{{Id}}" type="text" class="timepicker form-control" value="{{attendance.end_time}}">' +
+                            '<input type="text" class="timepicker form-control" value="{{attendance.end_time}}">' +
                         '</span>' +
                     '</div>' +
                 '</div>',
       scope: {
-        attendance: '=',
-        Id: '='
+        attendance: '='
       },
       link: function (scope, elem, attrs) {
       }

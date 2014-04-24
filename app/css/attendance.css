@@ -37,12 +37,12 @@ a.panel-title {
     cursor: pointer; 
 }
 
-.time-group{
+.time-group, .time-button{
     padding-bottom:5px;
     padding-top:5px;
 }
 
-.input-group-addon.time-label{
+.input-group-addon.time-label, .time-button{
     min-width: 87px;
 }
 

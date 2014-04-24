@@ -15,14 +15,15 @@
             <div id="collapse{{client.id}}" class="panel-collapse" ng-class="client.attendance.length ? 'collapse in' : 'collapse'">
                 <div class="panel-body">
                     <div class="row">
+                    {{client.attendance}}
                         <div ng-repeat="attendanceRecord in client.attendance">
                             <div time-picker attendance="attendanceRecord" Id="{{$index}}_{{client.id}}"></div>
                         </div>
                         <div class="col-sm-6 col-md-3">
-                            <button class="btn btn-success" ng-show="ShowTimeIn(client.attendance)" ng-click="TimeIn(client)">
+                            <button class="btn btn-success time-button" ng-show="ShowTimeIn(client.attendance)" ng-click="TimeIn(client.attendance)">
                             Time In
                             </button>
-                            <button class="btn btn-danger" ng-show="ShowTimeOut(client.attendance)" ng-click="TimeOut(client)">
+                            <button class="btn btn-danger time-button" ng-show="ShowTimeOut(client.attendance)" ng-click="TimeOut(client.attendance)">
                             Time Out
                             </button>
                         </div>
