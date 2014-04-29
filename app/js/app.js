@@ -45,13 +45,15 @@ pcApp.directive('timePicker', function ($timeout) {
                 '</div>',
       scope: {
         attendance: '=',
-        count: '@'
+        control: '='
       },
       link: function (scope, elem, attrs) {
 
-        console.log(elem);
+        // Get reference to outside control.
+        scope.internalControl = scope.control;
 
-        var initTimePicker = function(){
+        // Fuction to initalize timepicker controls.
+        scope.internalControl.initTimePicker = function(){
             $timeout(function(){
                 $(".timepicker.form-control").each(function() {
                     $(this).timepicker({
@@ -64,15 +66,8 @@ pcApp.directive('timePicker', function ($timeout) {
             }, 0);
         };
 
-        initTimePicker();
-
-        elem.on('change', function() {
-            initTimePicker();
-        });
-
-        // scope.$watch(elem, function(value) {
-        //     initTimePicker();
-        // });
+        // Initialize timepickers.
+        scope.internalControl.initTimePicker();
 
       }
   }

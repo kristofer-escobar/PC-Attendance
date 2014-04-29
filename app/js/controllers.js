@@ -77,15 +77,10 @@ pcControllers.controller('AttendanceCtrl', ['$scope', '$http', '$routeParams',
           'Title': 'Attendance Criteria',
           'Items': ['Service', 'Date']
       };
-  $scope.hstep = 1;
-  $scope.mstep = 15;
 
-  $scope.options = {
-    hstep: [1, 2, 3],
-    mstep: [1, 5, 10, 15, 25, 30]
-  };
+      // Used to store function to initialize timepickers.
+      $scope.timepicker = {};
 
-  $scope.ismeridian = true;
       $scope.ShowTimeIn = function(attendance){
 
         /*
@@ -199,6 +194,8 @@ pcControllers.controller('AttendanceCtrl', ['$scope', '$http', '$routeParams',
 
           // Add end time.
           attendance[attendance.length - 1].end_time = new Date().timeNow();
+
         }
       }
+
   }]);
