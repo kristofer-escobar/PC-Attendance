@@ -25,7 +25,7 @@ pcApp.config(['$routeProvider',
     }
 ]);
 
-// Directive to set up time-picker control.
+// Directive to set up time-picker controls.
 pcApp.directive('timePicker', function ($timeout) {
     return {
       restrict: 'A',

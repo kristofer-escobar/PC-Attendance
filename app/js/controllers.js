@@ -4,7 +4,7 @@
 
 var pcControllers = angular.module('pcControllers', []);
 
-// Controller for Master Page.
+// Main Controller.
 pcControllers.controller('MainCtrl', ['$scope',
 function ($scope) {
 
@@ -69,8 +69,11 @@ pcControllers.controller('AttendanceCtrl', ['$scope', '$http', '$routeParams',
       }). 
       error(function(){
         // Request to get attendance failed.
-        alert("Failed");
+        alert("Failed to retrieve attendance data.");
       });
+
+      // Page heading.
+      $scope.heading = "Individual Attendance";
 
       // Attendance Contextual Menu
       $scope.contextualMenu = {
@@ -118,10 +121,10 @@ pcControllers.controller('AttendanceCtrl', ['$scope', '$http', '$routeParams',
 
         var showTimeOut = false;
 
-        // Get last entered attendance record.
-        var lastAttendanceRecord = attendance[attendance.length - 1];
-
         if(attendance.length){
+
+          // Get last entered attendance record.
+          var lastAttendanceRecord = attendance[attendance.length - 1];
 
           if(lastAttendanceRecord.start_time && !lastAttendanceRecord.end_time){
             showTimeOut = true;
@@ -135,11 +138,11 @@ pcControllers.controller('AttendanceCtrl', ['$scope', '$http', '$routeParams',
 
         /*
          * Summary:
-         * Add a time row. If there is not attendance,
+         * Add a time row. If there is no attendance,
          * create a duration row.
          */
 
-        // Check if there is attendance.
+        // Check if there is no attendance.
         if(attendance.length == 0){
 
           // No attendance found, create a duration row.
