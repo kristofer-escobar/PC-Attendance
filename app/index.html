@@ -100,29 +100,15 @@
                         </div>
                         <div ng-include="selectedCaseRecord.url"></div>
                     </div>
-
-                    <!-- Contextual Menu-->
-                    <div id="contextual-menu">
-                        
-                    </div>
+                    <div ui-view="contextual-menu"></div>
                 </div>
-
                 <!-- Main Content -->
-                <div id="main" class="col-sm-9 col-md-8">
+                <div id="main">
                     <div id="main-content">
-                        <div ng-view></div>
+                        <div ui-view="main"></div>
                     </div>
                 </div>
                 <!-- /Main Content -->
-
-                <!-- Right Sidebars -->
-                <div class="sidebar col-md-2">
-                    <!-- Right-Sidebar-Menu -->
-                    <div id="right-sidebar-menu"></div>
-                    <!-- /Right-Sidebar-Menu -->
-                </div>
-                <!-- /Right Sidebars -->
-
             </div>
             <!-- /Row -->
         </div>
@@ -143,9 +129,7 @@
     <!-- Angular core/modules JavaScript
     ================================================== -->
     <script src="lib/angular/angular.min.js"></script>
-    <script src="lib/angular/angular-route.min.js"></script>
     <script src="lib/angular/angular-ui-router.min.js"></script>
-    <script src="lib/angular/angular-resource.min.js"></script>
     <script src="lib/angular/ui-bootstrap-tpls-0.10.0.min.js"></script>
 
     <!-- Custom JavaScript
@@ -153,8 +137,5 @@
     <script src="js/utilities.js"></script>
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
-    <script src="js/site.js"></script>
-    <script src="js/attendance.js"></script>
-    <script src="js/services.js"></script>
 </body>
 </html>

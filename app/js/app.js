@@ -4,26 +4,30 @@
 
 // Application and it's dependencies.
 var pcApp = angular.module('pcApp', [
-    'ngRoute',
     'ui.router',
     'ui.bootstrap',
     'pcControllers'
 ]);
 
-// Route Provider.
-pcApp.config(['$routeProvider', 
-    function ($routeProvider) {
+// State Provider.
+pcApp.config(function($stateProvider, $urlRouterProvider){
+$urlRouterProvider.otherwise("/attendance");
 
-        $routeProvider.
-        when('/attendance/service/:servId/date/:date', {
-            templateUrl: 'partials/attendance.html',
-            controller: 'AttendanceCtrl'
-        }).
-        otherwise({
-            redirectTo: '/attendance'
-        });
-    }
-]);
+$stateProvider
+    .state('attendance', {
+        url: "/attendance/service/:servId/date/:date",
+        views: {
+            "contextual-menu": {
+                templateUrl: "partials/attendance-contextual-menu.html",
+                controller: 'AttendanceCtrl'
+            },
+            "main": {
+                templateUrl: "partials/attendance.html",
+                controller: 'AttendanceCtrl'
+            }
+        }
+    })
+});
 
 // Directive to set up time-picker controls.
 pcApp.directive('timePicker', function ($timeout) {

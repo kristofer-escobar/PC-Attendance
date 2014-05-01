@@ -1,38 +1,50 @@
 ﻿<div ng-controller="AttendanceCtrl">
-    <div id="main-content-header" class="page-header"><h3>{{heading}}</h3></div>
-    <div class="well">
-        <div class="panel-group">
-            <div class="panel" ng-class="{'panel-info':selected}" ng-repeat="client in clientAttendance">
-                <div class="attendance-heading panel-heading attendance-table">
-                    <div class="attendance-row panel-title">
-                        <label class="attendance-cell consumer-select-checkbox">
-                            <input class="selected-consumer" id="client{{client.id}}" type="checkbox" ng-model="selected">
-                        </label>
-                        <a class="attendance-cell panel-header collapse">{{client.first_name}} {{client.last_name}}</a>
-                        <div class="attendance-cell present-button" data-toggle="buttons">
-                            <label class="btn btn-default" ng-class="{'active': client.attendance.length}" data-toggle="collapse" data-target="#collapse{{client.id}}"><input type="checkbox">Present</label>
+    <!-- Main Content -->
+    <div class="col-sm-9 col-md-8">
+        <div id="main-content-header" class="page-header"><h3>{{heading}}</h3></div>
+        <div class="well">
+            <div class="panel-group">
+                <div class="panel" ng-class="{'panel-info':selected}" ng-repeat="client in clientAttendance">
+                    <div class="attendance-heading panel-heading attendance-table">
+                        <div class="attendance-row panel-title">
+                            <label class="attendance-cell consumer-select-checkbox">
+                                <input class="selected-consumer" id="client{{client.id}}" type="checkbox" ng-model="selected">
+                            </label>
+                            <a class="attendance-cell panel-header collapse">{{client.first_name}} {{client.last_name}}</a>
+                            <div class="attendance-cell present-button" data-toggle="buttons">
+                                <label class="btn btn-default" ng-class="{'active': client.attendance.length}" data-toggle="collapse" data-target="#collapse{{client.id}}"><input type="checkbox">Present</label>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div id="collapse{{client.id}}" class="panel-collapse" ng-class="client.attendance.length ? 'collapse in' : 'collapse'">
-                    <div class="panel-body">
-                        <div class="row">
-                            <div ng-repeat="attendanceRecord in client.attendance">
-                                <div time-picker attendance="attendanceRecord" control="timepicker"></div>
+                    <div id="collapse{{client.id}}" class="panel-collapse" ng-class="client.attendance.length ? 'collapse in' : 'collapse'">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div ng-repeat="attendanceRecord in client.attendance">
+                                    <div time-picker attendance="attendanceRecord" control="timepicker"></div>
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                    <button class="btn btn-success time-button" ng-show="ShowTimeIn(client.attendance)" ng-click="TimeIn(client.attendance)">
+                                    Time In
+                                    </button>
+                                    <button class="btn btn-danger time-button" ng-show="ShowTimeOut(client.attendance)" ng-click="TimeOut(client.attendance); timepicker.initTimePicker()">
+                                    Time Out
+                                    </button>
+                                </div>
+                                
                             </div>
-                            <div class="col-sm-6 col-md-3">
-                                <button class="btn btn-success time-button" ng-show="ShowTimeIn(client.attendance)" ng-click="TimeIn(client.attendance)">
-                                Time In
-                                </button>
-                                <button class="btn btn-danger time-button" ng-show="ShowTimeOut(client.attendance)" ng-click="TimeOut(client.attendance); timepicker.initTimePicker()">
-                                Time Out
-                                </button>
-                            </div>
-                            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Right Sidebars -->
+    <div class="sidebar col-md-2">
+        <!-- Right-Sidebar-Menu -->
+        <div id="right-sidebar-menu">
+            <div ui-view="right-sidebar"></div>
+        </div>
+        <!-- /Right-Sidebar-Menu -->
+    </div>
+    <!-- /Right Sidebars -->
 </div>

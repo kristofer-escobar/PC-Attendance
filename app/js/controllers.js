@@ -48,21 +48,21 @@ function ($scope) {
   }]);
 
 // Attendance Controller
-pcControllers.controller('AttendanceCtrl', ['$scope', '$http', '$routeParams',
-  function ($scope, $http, $routeParams) {
+pcControllers.controller('AttendanceCtrl', ['$scope', '$http', '$stateParams',
+  function ($scope, $http, $stateParams) {
 
       // Default service to service id 0.
-      if($routeParams.servId == ''){
-        $routeParams.servId = 0;      
+      if($stateParams.servId == ''){
+        $stateParams.servId = 0;      
       }
 
       // Default attendance to today's date.
-      if($routeParams.date == ''){
-        $routeParams.date = new Date().today();
+      if($stateParams.date == ''){
+        $stateParams.date = new Date().today();
       }
 
       // Request to get attendnace for a service on a given day.
-      $http.get('http://localhost:6543/attendance/service/' + $routeParams.servId + '/date/' + $routeParams.date).
+      $http.get('http://localhost:6543/attendance/service/' + $stateParams.servId + '/date/' + $stateParams.date).
       success(function(data) {
         // Get Attendance Records
         $scope.clientAttendance = data;
@@ -76,10 +76,15 @@ pcControllers.controller('AttendanceCtrl', ['$scope', '$http', '$routeParams',
       $scope.heading = "Individual Attendance";
 
       // Attendance Contextual Menu
-      $scope.contextualMenu = {
-          'Title': 'Attendance Criteria',
-          'Items': ['Service', 'Date']
-      };
+      $scope.contextualMenu = [
+          {
+              title: 'Attendance Criteria',
+              content: [
+                  'Service',
+                  'Date'
+              ]
+          }
+      ]
 
       // Used to store function to initialize timepickers.
       $scope.timepicker = {};
