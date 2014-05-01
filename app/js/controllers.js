@@ -48,43 +48,102 @@ function ($scope) {
   }]);
 
 // Attendance Controller
-pcControllers.controller('AttendanceCtrl', ['$scope', '$http', '$stateParams',
-  function ($scope, $http, $stateParams) {
+pcControllers.controller('AttendanceCtrl', ['$scope', '$http', '$stateParams', '$location',
+  function ($scope, $http, $stateParams, $location, $state, $urlRouter) {
+
+    console.log($stateParams.servId + "  " + $stateParams.date);
 
       // Default service to service id 0.
-      if($stateParams.servId == ''){
-        $stateParams.servId = 0;      
+      if(!$stateParams.servId){
+        $stateParams.servId = 0; 
+        console.log('Serv Id set to ' + $stateParams.servId);
       }
 
       // Default attendance to today's date.
-      if($stateParams.date == ''){
+      if(!$stateParams.date){
         $stateParams.date = new Date().today();
+        console.log('Date set to ' + $stateParams.date);
       }
 
-      // Request to get attendnace for a service on a given day.
-      $http.get('http://localhost:6543/attendance/service/' + $stateParams.servId + '/date/' + $stateParams.date).
+      // Request to get services.
+      $http.get('http://localhost:6543/attendance').
       success(function(data) {
-        // Get Attendance Records
-        $scope.clientAttendance = data;
+        // Get services.
+        $scope.services = data;
+        console.log('Returned');
       }). 
       error(function(){
-        // Request to get attendance failed.
-        alert("Failed to retrieve attendance data.");
+        // Request to get services failed.
+        $scope.addAlert({ type: 'danger', msg: 'Oops!, Service data failed to load.' });
       });
+
+      // Exit if no service is selected.
+      if($stateParams.servId){
+
+        // Request to get attendnace for a service on a given day.
+        $http.get('http://localhost:6543/attendance/service/' + $stateParams.servId + '/date/' + $stateParams.date).
+        success(function(data) {
+          // Get Attendance Records
+          $scope.clientAttendance = data;
+        }). 
+        error(function(){
+          // Request to get attendance failed.
+          $scope.addAlert({ type: 'danger', msg: 'Oops!, Attendance data failed to load.' });
+        });
+      }
+
+      $scope.serviceChanged = function(service){
+        console.log('Service changed to ' + service.name);
+        $stateParams.servId = service.id;
+        $location.path('/attendance/service/' + $stateParams.servId + '/date/' + $stateParams.date)
+        $scope.location = $location.path();
+        $scope.search();
+      };
+
+      // Default to today's date.
+      $scope.selectedDate = new Date();
+
+      $scope.dateChanged = function(date){
+        $stateParams.date = date.getFullYear() + '-'+ (((date.getMonth()+1) < 10)?"0":"") + (date.getMonth()+1)+ "-" + ((date.getDate() < 10)?"0":"") + date.getDate();
+        $location.path('/attendance/service/' + $stateParams.servId + '/date/' + $stateParams.date)
+        $scope.location = $location.path();
+        $scope.search();
+      };
+
+      // Array to alerts.
+      $scope.alerts = [];
+
+      $scope.addAlert = function(alert) {
+
+        /*
+         * Summary:
+         * Adds alert to alerts collection.
+         */  
+               
+        $scope.alerts.push({type: alert.type, msg: alert.msg});
+      };
+
+      $scope.closeAlert = function(index) {
+
+        /*
+         * Summary:
+         * Removes alert from alerts collection.
+         */
+
+        $scope.alerts.splice(index, 1);
+      };
 
       // Page heading.
       $scope.heading = "Individual Attendance";
 
       // Attendance Contextual Menu
-      $scope.contextualMenu = [
-          {
-              title: 'Attendance Criteria',
-              content: [
-                  'Service',
-                  'Date'
-              ]
+      $scope.contextualMenu = {
+        title: 'Attendance Criteria',
+        content: [
+        'Service',
+        'Date'
+        ]
           }
-      ]
 
       // Used to store function to initialize timepickers.
       $scope.timepicker = {};

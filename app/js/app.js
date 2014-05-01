@@ -6,7 +6,9 @@
 var pcApp = angular.module('pcApp', [
     'ui.router',
     'ui.bootstrap',
-    'pcControllers'
+    'pcControllers',
+    'chieffancypants.loadingBar', 
+    'ngAnimate'
 ]);
 
 // State Provider.
@@ -15,12 +17,17 @@ $urlRouterProvider.otherwise("/attendance");
 
 $stateProvider
     .state('attendance', {
-        url: "/attendance/service/:servId/date/:date",
+        url: "/attendance",
         views: {
             "contextual-menu": {
                 templateUrl: "partials/attendance-contextual-menu.html",
                 controller: 'AttendanceCtrl'
-            },
+            }
+        }
+    })
+    .state('attendance.detail', {
+        url: "^/attendance/service/:servId/date/:date",
+        views: {
             "main": {
                 templateUrl: "partials/attendance.html",
                 controller: 'AttendanceCtrl'

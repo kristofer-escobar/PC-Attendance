@@ -1,8 +1,19 @@
-<div class="well" ng-controller="MainCtrl">
-    <accordion close-others=true>
-        <accordion-group heading="{{menuItem.title}}" ng-repeat="menuItem in mrddMenuItems">
-            <accordion-group heading="{{item}}" ng-repeat="item in menuItem.content">
-            </accordion-group>
-        </accordion-group>
-    </accordion>
+<div class="well">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">{{contextualMenu.title}}</h3>
+		</div>
+		<div class="panel-body">
+			<div>Service:
+				<select class="form-control" ng-model="selectedService" ng-options="service as service.name for service in services" ng-change="serviceChanged(selectedService)"></select>
+			</div>
+			<br>
+			<div>Date:
+				<input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy" ng-model="selectedDate" is-open="opened" show-button-bar="false" show-weeks="false" ng-change="dateChanged(selectedDate)"/>
+			</div>
+		</div>
+	</div>
 </div>
+
+
+
