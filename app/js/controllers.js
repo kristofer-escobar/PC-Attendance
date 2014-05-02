@@ -26,32 +26,20 @@ function ($scope) {
       // MRDD Menu Items.
       $scope.mrddMenuItems = [
           {
-              title: 'Individuals',
-              content: [
-                  'New Individual',
-                  'View/Update Individual',
-                  'Attach a File',
-                  'New Consent For Release',
-                  'View/Update Consent For Release'
-              ]
-          },
-          {
-              title: 'Intake',
-              content: [
-                  'Referral',
-                  'Servcies/Enrollment',
-                  'Screening'
-                ]
-            }
-      ]
+            title: 'Attendance',
+            content: [
+              {title: 'Attendance', url: 'attendance'},
+              {title: 'Attendance Only Summary', url: 'attendanceOnlySummary'}
+            ]
+          }
+      ];
 
   }]);
 
 // Attendance Controller
-pcControllers.controller('AttendanceCtrl', ['$scope', '$http', '$stateParams', '$location',
+pcControllers.controller('AttendanceCtrl', ['$scope', '$http', '$stateParams', '$location', '$state', '$urlRouter',
   function ($scope, $http, $stateParams, $location, $state, $urlRouter) {
-
-    console.log($stateParams.servId + "  " + $stateParams.date);
+    console.log('Entering Controller..' + $state.current.name);
 
       // Default service to service id 0.
       if(!$stateParams.servId){
@@ -70,15 +58,16 @@ pcControllers.controller('AttendanceCtrl', ['$scope', '$http', '$stateParams', '
       success(function(data) {
         // Get services.
         $scope.services = data;
-        console.log('Returned');
+        $scope.selectedService = data.filter(function( service ) {
+          return service.id == $stateParams.servId;
+        })[0];
       }). 
       error(function(){
         // Request to get services failed.
         $scope.addAlert({ type: 'danger', msg: 'Oops!, Service data failed to load.' });
       });
 
-      // Exit if no service is selected.
-      if($stateParams.servId){
+      $scope.getAttendance = function(){
 
         // Request to get attendnace for a service on a given day.
         $http.get('http://localhost:6543/attendance/service/' + $stateParams.servId + '/date/' + $stateParams.date).
@@ -90,24 +79,23 @@ pcControllers.controller('AttendanceCtrl', ['$scope', '$http', '$stateParams', '
           // Request to get attendance failed.
           $scope.addAlert({ type: 'danger', msg: 'Oops!, Attendance data failed to load.' });
         });
-      }
-
-      $scope.serviceChanged = function(service){
-        console.log('Service changed to ' + service.name);
-        $stateParams.servId = service.id;
-        $location.path('/attendance/service/' + $stateParams.servId + '/date/' + $stateParams.date)
-        $scope.location = $location.path();
-        $scope.search();
       };
 
-      // Default to today's date.
-      $scope.selectedDate = new Date();
+      $scope.getAttendance();
+
+      $scope.serviceChanged = function(service){
+        $scope.selectedService = service;
+        console.log($scope.selectedService);
+        $location.path('/attendance/service/' + service.id + '/date/' + $stateParams.date);
+        $scope.location = $location.path();
+      };
+
+      $scope.selectedDate =  $stateParams.date;
 
       $scope.dateChanged = function(date){
-        $stateParams.date = date.getFullYear() + '-'+ (((date.getMonth()+1) < 10)?"0":"") + (date.getMonth()+1)+ "-" + ((date.getDate() < 10)?"0":"") + date.getDate();
-        $location.path('/attendance/service/' + $stateParams.servId + '/date/' + $stateParams.date)
+        var dateParam = date.getFullYear() + '-'+ (((date.getMonth()+1) < 10)?"0":"") + (date.getMonth()+1)+ "-" + ((date.getDate() < 10)?"0":"") + date.getDate();
+        $location.path('/attendance/service/' + $stateParams.servId + '/date/' + dateParam);
         $scope.location = $location.path();
-        $scope.search();
       };
 
       // Array to alerts.

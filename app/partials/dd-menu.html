@@ -1,8 +1,9 @@
 ﻿<div class="well" ng-controller="MainCtrl">
     <accordion close-others=true>
         <accordion-group heading="{{menuItem.title}}" ng-repeat="menuItem in mrddMenuItems">
-            <accordion-group heading="{{item}}" ng-repeat="item in menuItem.content">
-            </accordion-group>
+            <div ng-repeat="item in menuItem.content">
+                <a ui-sref="{{item.url}}">{{item.title}}</a>
+            </div>
         </accordion-group>
     </accordion>
 </div>

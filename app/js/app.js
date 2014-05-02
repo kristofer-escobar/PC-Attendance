@@ -13,7 +13,8 @@ var pcApp = angular.module('pcApp', [
 
 // State Provider.
 pcApp.config(function($stateProvider, $urlRouterProvider){
-$urlRouterProvider.otherwise("/attendance");
+
+$urlRouterProvider.otherwise("/");
 
 $stateProvider
     .state('attendance', {
@@ -22,18 +23,33 @@ $stateProvider
             "contextual-menu": {
                 templateUrl: "partials/attendance-contextual-menu.html",
                 controller: 'AttendanceCtrl'
+            },
+            "main": {
+                template: "<div>Please Select a Service.</div>",
             }
         }
     })
-    .state('attendance.detail', {
+    .state('attendancedata', {
         url: "^/attendance/service/:servId/date/:date",
         views: {
+            "contextual-menu": {
+                templateUrl: "partials/attendance-contextual-menu.html",
+                controller: 'AttendanceCtrl'
+            },
             "main": {
                 templateUrl: "partials/attendance.html",
                 controller: 'AttendanceCtrl'
             }
         }
     })
+}).run( function($rootScope, $location) {
+   $rootScope.$watch(function() { 
+      return $location.path(); 
+    },
+    function(a){  
+      console.log('url has changed: ' + a);
+      // show loading div, etc...
+    });
 });
 
 // Directive to set up time-picker controls.
