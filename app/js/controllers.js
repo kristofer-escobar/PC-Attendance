@@ -84,17 +84,15 @@ pcControllers.controller('AttendanceCtrl', ['$scope', '$http', '$stateParams', '
       $scope.getAttendance();
 
       $scope.serviceChanged = function(service){
-        $scope.selectedService = service;
-        console.log($scope.selectedService);
+        //$scope.selectedService = service;
         $location.path('/attendance/service/' + service.id + '/date/' + $stateParams.date);
         $scope.location = $location.path();
       };
 
-      $scope.selectedDate =  $stateParams.date;
+      $scope.selectedDate = new Date().stringToDate($stateParams.date)
 
       $scope.dateChanged = function(date){
-        var dateParam = date.getFullYear() + '-'+ (((date.getMonth()+1) < 10)?"0":"") + (date.getMonth()+1)+ "-" + ((date.getDate() < 10)?"0":"") + date.getDate();
-        $location.path('/attendance/service/' + $stateParams.servId + '/date/' + dateParam);
+        $location.path('/attendance/service/' + $stateParams.servId + '/date/' + new Date().dateToString(date));
         $scope.location = $location.path();
       };
 
