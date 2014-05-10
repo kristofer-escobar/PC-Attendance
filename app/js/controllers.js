@@ -37,8 +37,8 @@ function ($scope) {
   }]);
 
 // Attendance Controller
-pcControllers.controller('AttendanceCtrl', ['$scope', '$http', '$stateParams', '$location', '$state', '$urlRouter',
-  function ($scope, $http, $stateParams, $location, $state, $urlRouter) {
+pcControllers.controller('AttendanceCtrl', ['$scope', '$http', '$stateParams', '$location', '$state', '$urlRouter', 'AttendanceServices',
+  function ($scope, $http, $stateParams, $location, $state, $urlRouter, AttendanceServices) {
     console.log('Entering Controller..' + $state.current.name);
 
       // Default service to service id 0.
@@ -53,19 +53,27 @@ pcControllers.controller('AttendanceCtrl', ['$scope', '$http', '$stateParams', '
         console.log('Date set to ' + $stateParams.date);
       }
 
-      // Request to get services.
-      $http.get('http://localhost:6543/attendance').
-      success(function(data) {
-        // Get services.
+      // Call the async method and then do stuff with what is returned inside our own then function
+      AttendanceServices.async().then(function(data) {
         $scope.services = data;
         $scope.selectedService = data.filter(function( service ) {
           return service.id == $stateParams.servId;
         })[0];
-      }). 
-      error(function(){
-        // Request to get services failed.
-        $scope.addAlert({ type: 'danger', msg: 'Oops!, Service data failed to load.' });
       });
+
+      // // Request to get services.
+      // $http.get('http://localhost:6543/attendance').
+      // success(function(data) {
+      //   // Get services.
+      //   $scope.services = data;
+      //   $scope.selectedService = data.filter(function( service ) {
+      //     return service.id == $stateParams.servId;
+      //   })[0];
+      // }). 
+      // error(function(){
+      //   // Request to get services failed.
+      //   $scope.addAlert({ type: 'danger', msg: 'Oops!, Service data failed to load.' });
+      // });
 
       $scope.getAttendance = function(){
 
@@ -78,6 +86,22 @@ pcControllers.controller('AttendanceCtrl', ['$scope', '$http', '$stateParams', '
         error(function(){
           // Request to get attendance failed.
           $scope.addAlert({ type: 'danger', msg: 'Oops!, Attendance data failed to load.' });
+        });
+      };
+
+      $scope.saveAttendance = function(){
+        console.log('Save button has been clicked.');
+
+        // Request to get attendnace for a service on a given day.
+        $http.put('http://localhost:6543/attendance/service/' + $stateParams.servId + '/date/' + $stateParams.date, $scope.clientAttendance).
+        success(function(data) {
+          // Get Attendance Records
+          //$scope.clientAttendance = data;
+        }). 
+        error(function(){
+          // Request to get attendance failed.
+          //$scope.addAlert({ type: 'danger', msg: 'Oops!, Attendance data failed to load.' });
+          console.log('Error Occurred.');
         });
       };
 
